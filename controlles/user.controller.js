@@ -25,6 +25,16 @@ module.exports.getUser = async (req, res) => {
   }
 };
 
+module.exports.createUser = async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const user = await User.create({ username, password });
+    res.status(200).send(user);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
 module.exports.updateUser = async (req, res) => {
   if (!ObjectId.isValid(req.params.id))
     return res
